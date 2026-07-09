@@ -1,0 +1,23 @@
+#include <iostream>
+#include "movie.h"
+#include <filesystem>
+#include <vector>
+
+using namespace std;
+
+// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+int main() {
+    vector<movie> movies = loadMovies("title.basics.tsv");
+
+    unordered_map<string, movie> movieMap = loadratings("title.ratings.tsv", movies);
+
+    cout << "Loaded movie map size: " << movieMap.size() << endl;
+
+    for (auto& pair : movieMap) {
+        if (pair.second.rating >= 1.0 && pair.second.rating <= 10.0) {
+            cout << "Title: " << pair.second.title
+                 << " Rating: " << pair.second.rating
+                 << " NumVotes: " << pair.second.numVotes << endl;
+        }
+    }
+}

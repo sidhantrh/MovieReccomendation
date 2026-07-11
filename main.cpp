@@ -131,18 +131,7 @@ int main(){
                 cout << "Movie title not found in the current dataset!" << endl;
             }
         }
-        else if (choice == 3) {
-
-            // --- PRINT FINAL TIMINGS ---
-            cout << "\n==== Performance Comparison ====" << endl;
-            cout << "Max Heap Insertion Time:   " << heap_insert_time << " ms" << endl;
-            cout << "RBT Insertion Time:        " << tree_insert_time << " ms" << endl;
-            cout << "Max Heap Extraction Time:  " << heap_extract_time << " ms" << endl;
-            cout << "RBT Extraction Time:       " << tree_extract_time << " ms" << endl;
-
-
-        }
-    }
+    
 
 
     return 0;

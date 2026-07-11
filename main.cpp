@@ -25,7 +25,7 @@ int main() {
     cout << "\nData successfully loaded!" << endl;
     cout << "Total movies in memory: " << movieMap.size() << "\n" << endl;
 
-    // The basic skeleton for your CLI Menu
+    // CLI Menu
     int choice = 0;
     while (choice != 3) {
         cout << "==== MovieMatch ====" << endl;

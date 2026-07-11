@@ -1,12 +1,13 @@
 //
 // Created by sidha on 7/2/2026.
 //
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include <filesystem>
 #include <vector>
+#include <iostream>
+#include <cmath>
 #include <unordered_map>
-#include <string>
+#include <algorithm>
+
 
 using namespace std;
 #ifndef PROJECT2_MOVIE_H
@@ -17,16 +18,16 @@ using namespace std;
 struct movie {
     string id;
     string title;
+
     vector<string> genres;
     int year;
     int runtime;
-    string director;
+
+    vector<string> directors;
     vector<string> cast;
-    string language;
-    string studio;
+
     string country;
-    string ageRating;
-    double imdbRating;
+
     double rating;
     int numVotes;
     int recommendationScore = 0;
@@ -35,5 +36,9 @@ struct movie {
 vector<movie> loadMovies(const string& filename);
 vector<string> split(const string& str, char delimiter);
 unordered_map<string,movie> loadratings(const string& filename, vector<movie> movies);
-vector<movie> getMovieList(const unordered_map<string, movie>& movies);
+unordered_map<string,string> personNames(const string& filename);
+void loadregions(const string& filename, unordered_map<string, movie>& movieMap);
+void loadPrincipals( const string& filename, unordered_map<string, movie>& movieMap,const unordered_map<string, string>& people);
+void calculateRecommendations(const movie& targetMovie, unordered_map<string, movie>& movieMap);
+
 #endif //PROJECT2_MOVIE_H

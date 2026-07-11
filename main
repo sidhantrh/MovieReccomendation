@@ -5,6 +5,9 @@
 #include <unordered_map>
 #include <cmath>
 #include <algorithm>
+#include "mheap.h"
+#include "RBT.h"
+#include <chrono>
 using namespace std;
 
 
@@ -23,7 +26,7 @@ int main(){
     cout << "\nData successfully loaded!" << endl;
     cout << "Total movies in memory: " << movieMap.size() << "\n" << endl;
 
-    // The basic skeleton for CLI Menu
+    // The basic skeleton for your CLI Menu
     int choice = 0;
     while (choice != 4) {
         cout << "==== MovieMatch ====" << endl;
@@ -34,6 +37,11 @@ int main(){
         cout << "Enter your choice (1-4): ";
 
         cin >> choice;
+        int heap_insert_time = 0;
+        int tree_insert_time = 0;
+        int heap_extract_time = 0;
+        int tree_extract_time = 0;
+
 
         if (choice == 2) {
             string targetTitle;
@@ -60,13 +68,85 @@ int main(){
 
                 calculateRecommendations(targetMovie, movieMap);
 
-                cout << "Scores calculated! (Data structure insertion goes here next)" << endl;
+                int num_recs = 0;
+                cout << "Please enter how many number of reccomendations you want?" << endl;
+                cin >> num_recs;
+
+                MaxHeap recommendationHeap;
+                RBT recommendationTree;
+
+                cout << "/nInserting recommendations and benchmarking performance..." << endl;
+
+                // --- MAX HEAP INSERTION BENCHMARK ---
+                auto startHeapInsert = chrono::high_resolution_clock::now();
+                for (const auto& pair : movieMap) {
+                    if (pair.second.recommendationScore > 0) {
+                        recommendationHeap.insert(pair.second.id, pair.second.title, pair.second.recommendationScore);
+                    }
+                }
+                auto endHeapInsert = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> heapInsertTime = endHeapInsert - startHeapInsert;
+
+                // --- RED-BLACK TREE INSERTION BENCHMARK ---
+                auto startTreeInsert = chrono::high_resolution_clock::now();
+                for (const auto& pair : movieMap) {
+                    if (pair.second.recommendationScore > 0) {
+                        recommendationTree.insert(pair.second.year, pair.second.title, pair.second.recommendationScore); // Note: Your RBT takes an int for ID right now, so I passed year just to make it compile, you may want to change RBT to take a string ID!
+                    }
+                }
+                auto endTreeInsert = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> treeInsertTime = endTreeInsert - startTreeInsert;
+
+                // --- PRINT TOP N & RETRIEVAL BENCHMARKS ---
+                cout << "\n==== Top " << num_recs << " Recommended Movies ====" << endl;
+
+                // Max Heap Extraction
+                cout << "\n--- Max Heap Results ---" << endl;
+                auto startHeapExtract = chrono::high_resolution_clock::now();
+                recommendationHeap.top_n(num_recs);
+                auto endHeapExtract = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> heapExtractTime = endHeapExtract - startHeapExtract;
+
+                // RBT Extraction
+                cout << "\n--- Red-Black Tree Results ---" << endl;
+                auto startTreeExtract = chrono::high_resolution_clock::now();
+                recommendationTree.top_n(num_recs);
+                auto endTreeExtract = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> treeExtractTime = endTreeExtract - startTreeExtract;
+
+                heap_insert_time = heap_insert_time+ heapInsertTime.count();
+                tree_insert_time =  tree_insert_time+ treeInsertTime.count();
+                heap_extract_time = heap_extract_time+ heapExtractTime.count();
+                tree_extract_time = tree_extract_time + treeExtractTime.count();
+
+                // --- PRINT FINAL TIMINGS ---
+                cout << "\n==== Performance Comparison ====" << endl;
+                cout << "Max Heap Insertion Time:   " << heapInsertTime.count() << " ms" << endl;
+                cout << "RBT Insertion Time:        " << treeInsertTime.count() << " ms" << endl;
+                cout << "Max Heap Extraction Time:  " << heapExtractTime.count() << " ms" << endl;
+                cout << "RBT Extraction Time:       " << treeExtractTime.count() << " ms" << endl;
+
+
+
+
             } else {
                 cout << "Movie title not found in the current dataset!" << endl;
             }
+        }
+        else if (choice == 3) {
+
+            // --- PRINT FINAL TIMINGS ---
+            cout << "\n==== Performance Comparison ====" << endl;
+            cout << "Max Heap Insertion Time:   " << heap_insert_time << " ms" << endl;
+            cout << "RBT Insertion Time:        " << tree_insert_time << " ms" << endl;
+            cout << "Max Heap Extraction Time:  " << heap_extract_time << " ms" << endl;
+            cout << "RBT Extraction Time:       " << tree_extract_time << " ms" << endl;
+
+
         }
     }
 
 
     return 0;
 }
+

@@ -34,13 +34,6 @@ vector<movie> loadMovies(const string& filename)
     while (getline(file, line)) {
         count++;
 
-        if (count % 100000 == 0) {
-            cout << "Processed " << count << " lines..." << endl;
-        }
-
-        if (count >= 10000) {
-            break;
-        }
         vector<string> tokens = split(line, '\t');
 
         if (tokens.size() < 9) {
@@ -159,13 +152,7 @@ unordered_map<string,string> personNames(const string& filename) {
     while (getline(file, line)) {
 
         count++;
-        if (count % 100000 == 0) {
-            cout << "Processed " << count << " lines..." << endl;
-        }
-
-        if (count >= 10000) {
-            break;
-        }
+        
         vector<string> tokens = split(line, '\t');
 
         if (tokens.size() < 2) {
@@ -207,13 +194,6 @@ void loadPrincipals(
     while (getline(file, line)) {
 
         count++;
-        if (count % 100000 == 0) {
-            cout << "Processed " << count << " lines..." << endl;
-        }
-
-        if (count >= 10000) {
-            break;
-        }
 
         vector<string> tokens = split(line, '\t');
 

@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-int main(){
+int main() {
     cout << "Loading dataset, this might take a second..." << endl;
 
     vector<movie> movies = loadMovies("title.basics.tsv");
@@ -29,7 +29,7 @@ int main(){
     int choice = 0;
     while (choice != 3) {
         cout << "==== MovieMatch ====" << endl;
-        cout << "1. Load Dataset (Already Done)" << endl;
+        cout << "1. Dataset size:" << endl;
         cout << "2. Find Recommendations" << endl;
         cout << "3. Exit" << endl;
         cout << "Enter your choice (1-3): ";
@@ -39,9 +39,10 @@ int main(){
         double tree_insert_time = 0;
         double heap_extract_time = 0;
         double tree_extract_time = 0;
-
-
-        if (choice == 2) {
+        if (choice == 1) {
+            cout << "Total movies in memory: " << movieMap.size() << endl;
+        }
+        else if (choice == 2) {
             string targetTitle;
             cout << "Enter a movie title to get recommendations (e.g., The Matrix): ";
 
@@ -89,7 +90,7 @@ int main(){
                 auto startTreeInsert = chrono::high_resolution_clock::now();
                 for (const auto& pair : movieMap) {
                     if (pair.second.recommendationScore > 0) {
-                       recommendationTree.insert(pair.second.id, pair.second.title, pair.second.recommendationScore); 
+                        recommendationTree.insert(pair.second.id, pair.second.title, pair.second.recommendationScore);
                     }
                 }
                 auto endTreeInsert = chrono::high_resolution_clock::now();
@@ -124,16 +125,18 @@ int main(){
                 cout << "Max Heap Extraction Time:  " << heapExtractTime.count() << " ms" << endl;
                 cout << "RBT Extraction Time:       " << treeExtractTime.count() << " ms" << endl;
 
-
-
-
-            } else {
-                cout << "Movie title not found in the current dataset!" << endl;
+            }
+            else if (choice == 3) {
+                cout << "Goodbye!" << endl;
+            }
+            else {
+                cout << "Invalid choice. Please enter 1, 2, or 3." << endl;
             }
         }
-    
+    }
 
 
     return 0;
 }
+
 

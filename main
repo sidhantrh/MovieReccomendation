@@ -91,7 +91,7 @@ int main(){
                 auto startTreeInsert = chrono::high_resolution_clock::now();
                 for (const auto& pair : movieMap) {
                     if (pair.second.recommendationScore > 0) {
-                        recommendationTree.insert(pair.second.year, pair.second.title, pair.second.recommendationScore); // Note: Your RBT takes an int for ID right now, so I passed year just to make it compile, you may want to change RBT to take a string ID!
+                       recommendationTree.insert(pair.second.id, pair.second.title, pair.second.recommendationScore); 
                     }
                 }
                 auto endTreeInsert = chrono::high_resolution_clock::now();

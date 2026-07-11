@@ -13,7 +13,7 @@ using namespace std;
 // actually occurred. No preference for which side red links lean on.
 class RBT{
     struct Node{
-        int movie_id;
+        string movie_id;
         string movie_name;
         int movie_score;
         bool color;

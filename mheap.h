@@ -24,7 +24,7 @@ class MaxHeap {
 public:
     MaxHeap();
 
-    void insert(int movie_id, string movie_name, int movie_score);
+    void insert(string movie_id, string movie_name, int movie_score);
     void top_n(int n);
 
     bool empty() const;

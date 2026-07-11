@@ -27,12 +27,12 @@ int main(){
 
     // The basic skeleton for your CLI Menu
     int choice = 0;
-    while (choice != 4) {
+    while (choice != 3) {
         cout << "==== MovieMatch ====" << endl;
         cout << "1. Load Dataset (Already Done)" << endl;
         cout << "2. Find Recommendations" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Enter your choice (1-4): ";
+        cout << "3. Exit" << endl;
+        cout << "Enter your choice (1-3): ";
 
         cin >> choice;
         double heap_insert_time = 0;

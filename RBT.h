@@ -26,7 +26,7 @@ class RBT{
     // internal helpers
     bool is_red(Node* node); // treats nullptr as BLACK
     Node* balance(Node* h);
-    Node* insert_helper(Node* h, int movie_id, string movie_name, int movie_score);
+    Node* insert_helper(Node* h, string movie_id, string movie_name, int movie_score);
     int top_n_helper(Node* node, int n, int count);
     void destroy_helper(Node* node);
 
@@ -34,6 +34,6 @@ class RBT{
     RBT();
     ~RBT();
 
-    void insert(int movie_id, string movie_name, int movie_score);
+    void insert(string movie_id, string movie_name, int movie_score);
     void top_n(int n);
 };

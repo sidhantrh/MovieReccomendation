@@ -5,7 +5,7 @@ using namespace std;
 
 class MaxHeap {
     struct Node {
-        int movie_id;
+        string movie_id;
         string movie_name;
         int movie_score;
     };

@@ -248,9 +248,6 @@ void loadregions(const string& filename,unordered_map<string, movie>& movieMap) 
 
     while (getline(file, line)) {
         count++;
-        if (count >= 10000) {
-            break;
-        }
 
         vector<string> tokens = split(line, '\t');
 
@@ -258,7 +255,7 @@ void loadregions(const string& filename,unordered_map<string, movie>& movieMap) 
             continue;
         }
 
-        if (tokens[0] == "\\N" || tokens[3] == "\\N") {
+        if (tokens[0] == "\N" || tokens[3] == "\N") {
             continue;
         }
 

@@ -82,7 +82,7 @@ MaxHeap::Node MaxHeap::extractMax() {
     return maxMovie;
 }
 
-void MaxHeap::insert(int movie_id, string movie_name, int movie_score) {
+void MaxHeap::insert(string movie_id, string movie_name, int movie_score) {
     Node node;
     node.movie_id = movie_id;
     node.movie_name = movie_name;

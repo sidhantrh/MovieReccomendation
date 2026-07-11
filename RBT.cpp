@@ -80,7 +80,7 @@ RBT::Node* RBT::balance(Node* h){
     return h; 
 }
 
-RBT::Node* RBT::insert_helper(Node* h, int movie_id, string movie_name, int movie_score){
+RBT::Node* RBT::insert_helper(Node* h, string movie_id, string movie_name, int movie_score){
     if(h == nullptr){
         Node* node = new Node;
         node->movie_id = movie_id;
@@ -101,7 +101,7 @@ RBT::Node* RBT::insert_helper(Node* h, int movie_id, string movie_name, int movi
     return balance(h);
 }
 
-void RBT::insert(int movie_id, string movie_name, int movie_score){
+void RBT::insert(string movie_id, string movie_name, int movie_score){
     root = insert_helper(root, movie_id, movie_name, movie_score);
     root->color = BLACK; // root is always black
 }

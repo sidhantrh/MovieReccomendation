@@ -255,7 +255,7 @@ void loadregions(const string& filename,unordered_map<string, movie>& movieMap) 
             continue;
         }
 
-        if (tokens[0] == "\N" || tokens[3] == "\N") {
+        if (tokens[0] == "\\N" || tokens[3] == "\\N") {
             continue;
         }
 

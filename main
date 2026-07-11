@@ -1,23 +1,72 @@
-#include <iostream>
-#include "movie.h"
 #include <filesystem>
 #include <vector>
-
+#include <iostream>
+#include "movie.h"
+#include <unordered_map>
+#include <cmath>
+#include <algorithm>
 using namespace std;
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-int main() {
+
+
+
+int main(){
+    cout << "Loading dataset, this might take a second..." << endl;
+
     vector<movie> movies = loadMovies("title.basics.tsv");
-
     unordered_map<string, movie> movieMap = loadratings("title.ratings.tsv", movies);
+    unordered_map<string, string> people = personNames("name.basics.tsv");
+    loadPrincipals("title.principals.tsv", movieMap, people);
 
-    cout << "Loaded movie map size: " << movieMap.size() << endl;
+    loadregions("title.akas.tsv", movieMap);
 
-    for (auto& pair : movieMap) {
-        if (pair.second.rating >= 1.0 && pair.second.rating <= 10.0) {
-            cout << "Title: " << pair.second.title
-                 << " Rating: " << pair.second.rating
-                 << " NumVotes: " << pair.second.numVotes << endl;
+    cout << "\nData successfully loaded!" << endl;
+    cout << "Total movies in memory: " << movieMap.size() << "\n" << endl;
+
+    // The basic skeleton for your CLI Menu
+    int choice = 0;
+    while (choice != 4) {
+        cout << "==== MovieMatch ====" << endl;
+        cout << "1. Load Dataset (Already Done)" << endl;
+        cout << "2. Find Recommendations" << endl;
+        cout << "3. Compare Data Structures" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice (1-4): ";
+
+        cin >> choice;
+
+        if (choice == 2) {
+            string targetTitle;
+            cout << "Enter a movie title to get recommendations (e.g., The Matrix): ";
+
+            // Clear the newline character left in the buffer by 'cin >> choice'
+            cin.ignore();
+            // Read the entire line, spaces included
+            getline(cin, targetTitle);
+
+            string targetID = "";
+
+            // Search through the map for a matching title
+            for (const auto& pair : movieMap) {
+                if (pair.second.title == targetTitle) {
+                    targetID = pair.first;
+                    break; // Found it, stop searching!
+                }
+            }
+
+            if (targetID != "") {
+                movie targetMovie = movieMap[targetID];
+                cout << "Calculating recommendations for: " << targetMovie.title << "..." << endl;
+
+                calculateRecommendations(targetMovie, movieMap);
+
+                cout << "Scores calculated! (Data structure insertion goes here next)" << endl;
+            } else {
+                cout << "Movie title not found in the current dataset!" << endl;
+            }
         }
     }
+
+
+    return 0;
 }

@@ -1,4 +1,3 @@
-#include <filesystem>
 #include <vector>
 #include <iostream>
 #include "movie.h"
@@ -32,15 +31,14 @@ int main(){
         cout << "==== MovieMatch ====" << endl;
         cout << "1. Load Dataset (Already Done)" << endl;
         cout << "2. Find Recommendations" << endl;
-        cout << "3. Compare Data Structures" << endl;
         cout << "4. Exit" << endl;
         cout << "Enter your choice (1-4): ";
 
         cin >> choice;
-        int heap_insert_time = 0;
-        int tree_insert_time = 0;
-        int heap_extract_time = 0;
-        int tree_extract_time = 0;
+        double heap_insert_time = 0;
+        double tree_insert_time = 0;
+        double heap_extract_time = 0;
+        double tree_extract_time = 0;
 
 
         if (choice == 2) {

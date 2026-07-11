@@ -75,7 +75,7 @@ int main(){
                 MaxHeap recommendationHeap;
                 RBT recommendationTree;
 
-                cout << "/nInserting recommendations and benchmarking performance..." << endl;
+                cout << "\nInserting recommendations..." << endl;
 
                 // --- MAX HEAP INSERTION BENCHMARK ---
                 auto startHeapInsert = chrono::high_resolution_clock::now();

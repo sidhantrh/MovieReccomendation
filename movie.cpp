@@ -103,7 +103,7 @@ unordered_map<string,movie>loadratings(const string& filename, vector<movie> mov
         return rating_by_movie;
     }
 
-    // First, put all existing movies into the map by id
+    // Place all existing movies into the map by id
     for (movie m : movies) {
         rating_by_movie[m.id] = m;
     }

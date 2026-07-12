@@ -132,7 +132,7 @@ unordered_map<string,movie>loadratings(const string& filename, vector<movie> mov
     return rating_by_movie;
 }
 
-// person names by id map generation
+// Person Names by id map generation
 unordered_map<string,string> personNames(const string& filename) {
     unordered_map<string,string> person_names_by_id;
     ifstream file(filename);

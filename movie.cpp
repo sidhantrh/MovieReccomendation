@@ -93,6 +93,7 @@ vector<string> splitGenres(const string& genres) {
     return split(genres, ',');
 }
 
+// ratings by movie map generation
 unordered_map<string,movie>loadratings(const string& filename, vector<movie> movies){
     unordered_map<string, movie> rating_by_movie;
 
@@ -131,7 +132,7 @@ unordered_map<string,movie>loadratings(const string& filename, vector<movie> mov
     return rating_by_movie;
 }
 
-
+// person names by id map generation
 unordered_map<string,string> personNames(const string& filename) {
     unordered_map<string,string> person_names_by_id;
     ifstream file(filename);
@@ -273,7 +274,7 @@ void calculateRecommendations(const movie& targetMovie, unordered_map<string, mo
     for (auto& pair : movieMap) {
         movie& currentMovie = pair.second;
 
-        // Reset score in case we run multiple searches
+        // Reset score 
         currentMovie.recommendationScore = 0;
 
         // Skip the target movie so we don't recommend the exact same movie to the user
@@ -345,7 +346,7 @@ void calculateRecommendations(const movie& targetMovie, unordered_map<string, mo
             score += 4;
         }
 
-        // Save the score back to the movie object
+        // Save the score 
         currentMovie.recommendationScore = score;
     }
 }
